@@ -4,7 +4,7 @@ const port = process.env.PORT || 'missing PORT';
 const host = process.env.HOST || 'missing HOST';
 const message = process.env.MESSAGE || 'missing MESSAGE';
 
-const frasiMotivazionali = [
+const arrPhrases = [
   'La vita è per il 10% cosa ti accade e per il 90% come reagisci.',
   'Ci sono due regole nella vita: \n1. Non mollare mai; \n2. Non dimenticare mai la regola n° 1. ',
   'Se qualcosa non ti piace, cambiala. Se non puoi cambiarla, cambia il tuo atteggiamento. Non lamentarti.',
@@ -17,9 +17,9 @@ const frasiMotivazionali = [
   'Niente è davvero difficile se lo si divide in tanti piccoli pezzettini.',
 ];
 
-const GetFrase = () => {
-  const index = Math.floor(Math.random() * frasiMotivazionali.length);
-  return `${index}. ${frasiMotivazionali[index]}`;
+const GetPhrase = () => {
+  const index = Math.floor(Math.random() * arrPhrases.length);
+  return `${index}. ${arrPhrases[index]}`;
 };
 
 http
@@ -36,10 +36,10 @@ http
       'Content-Type': 'text/html;charset=utf-8',
     });
 
-    const randomFrase = GetFrase();
+    const randomPhrase = GetPhrase();
 
     res.end(`.env message: ${message}\n
-      <h1>${randomFrase}<h1/>
+      <h1>${randomPhrase}<h1/>
     `);
   })
   .listen(port, host, () => {
