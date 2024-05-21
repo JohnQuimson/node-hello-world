@@ -1,8 +1,8 @@
 require('dotenv').config();
 const http = require('http');
-const port = process.env.PORT;
-const host = process.env.HOST;
-const message = process.env.MESSAGE;
+const port = process.env.PORT || 'missing PORT';
+const host = process.env.HOST || 'missing HOST';
+const message = process.env.MESSAGE || 'missing MESSAGE';
 
 const frasiMotivazionali = [
   'La vita e` per il 10% cosa ti accade e per il 90% come reagisci.',
@@ -24,10 +24,20 @@ const GetFrase = () => {
 
 http
   .createServer(function (req, res) {
+    if (req.url === '/favicon.ico') {
+      res.writeHead(404, {
+        'Content-Type': 'text/html',
+      });
+      res.end('<h1>404 Not Found</h1>');
+      return;
+    }
+
     res.writeHead(200, {
       'Content-Type': 'text/html',
     });
+
     const randomFrase = GetFrase();
+
     res.end(`.env message: ${message}\n
       <h1>${randomFrase}<h1/>
     `);
